@@ -13,12 +13,6 @@ class WomenAPIView(APIView):
     def post(self, request):
         return Response({'title': 'Гульнур Сатылганова'})
 
-    def get(self, request):
-        lst = Women.objects.all().values()
-        return Response({'posts': list(lst)})
-
-    def post(self, request):
-        return Response({'title': 'Гульнур Сатылганова'})
 
 
 # class WomenAPIView(generics.ListAPIView):
