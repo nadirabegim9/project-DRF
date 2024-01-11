@@ -1,3 +1,4 @@
+from django.forms import model_to_dict
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -7,11 +8,15 @@ from .serializers import WomenSerializer
 
 class WomenAPIView(APIView):
     def get(self, request):
-        lst = Women.objects.all().values()
-        return Response({'posts': list(lst)})
+        w = Women.objects.all()
+        return Response({'posts': WomenSerializer(w, many=True).data})
 
     def post(self, request):
-        return Response({'title': 'Гульнур Сатылганова'})
+        serializer = WomenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({'past': serializer.data})
 
 
 
